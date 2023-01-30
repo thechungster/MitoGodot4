@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://caglutvrjptma"]
+
+[ext_resource type="PackedScene" uid="uid://b5w04517t0vd6" path="res://src/parts/PartManager.tscn" id="1_gtksi"]
+[ext_resource type="PackedScene" uid="uid://c6ifaa28dwthi" path="res://src/entities/BasePlayer.tscn" id="1_kvdmu"]
+
+[node name="GameManager" type="Node2D"]
+
+[node name="PartManager" parent="." instance=ExtResource("1_gtksi")]
+
+[node name="BasePlayer" parent="." instance=ExtResource("1_kvdmu")]
+position = Vector2(566, 304)

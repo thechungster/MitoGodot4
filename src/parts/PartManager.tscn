@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5w04517t0vd6"]
+
+[ext_resource type="Script" path="res://src/parts/PartManager.cs" id="1_mftle"]
+
+[node name="PartManager" type="Node2D"]
+script = ExtResource("1_mftle")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spike"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="ButtonOnePressed"]

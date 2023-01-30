@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6ifaa28dwthi"]
+
+[ext_resource type="Script" path="res://src/entities/BasePlayer.cs" id="1_w8old"]
+[ext_resource type="Texture2D" uid="uid://b1tct06ituy2d" path="res://assets/icon.svg" id="2_vadvw"]
+
+[node name="BasePlayer" type="Node2D"]
+script = ExtResource("1_w8old")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vadvw")
