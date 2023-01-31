@@ -1,11 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://caglutvrjptma"]
+[gd_scene load_steps=5 format=3 uid="uid://bpfwpv7prbrk4"]
 
-[ext_resource type="PackedScene" uid="uid://b5w04517t0vd6" path="res://src/parts/PartManager.tscn" id="1_gtksi"]
+[ext_resource type="PackedScene" uid="uid://bk5px0kqugtfk" path="res://src/world/PartManager.tscn" id="1_gtksi"]
 [ext_resource type="PackedScene" uid="uid://c6ifaa28dwthi" path="res://src/entities/BasePlayer.tscn" id="1_kvdmu"]
+[ext_resource type="Script" path="res://src/world/GameManager.cs" id="1_yr8ac"]
+[ext_resource type="PackedScene" uid="uid://crq4hg8gkuako" path="res://src/ui/debug/DebugUi.tscn" id="4_u7gr7"]
 
 [node name="GameManager" type="Node2D"]
-
-[node name="PartManager" parent="." instance=ExtResource("1_gtksi")]
+script = ExtResource("1_yr8ac")
 
 [node name="BasePlayer" parent="." instance=ExtResource("1_kvdmu")]
-position = Vector2(566, 304)
+unique_name_in_owner = true
+position = Vector2(21.4622, 7.42396)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugUi" parent="CanvasLayer" instance=ExtResource("4_u7gr7")]
+
+[node name="PartManager" parent="CanvasLayer" instance=ExtResource("1_gtksi")]
+unique_name_in_owner = true

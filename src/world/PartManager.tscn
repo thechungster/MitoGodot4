@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5w04517t0vd6"]
+[gd_scene load_steps=2 format=3 uid="uid://bk5px0kqugtfk"]
 
-[ext_resource type="Script" path="res://src/parts/PartManager.cs" id="1_mftle"]
+[ext_resource type="Script" path="res://src/world/PartManager.cs" id="1_mftle"]
 
 [node name="PartManager" type="Node2D"]
 script = ExtResource("1_mftle")

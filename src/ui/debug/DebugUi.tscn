@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://crq4hg8gkuako"]
+
+[ext_resource type="Script" path="res://src/ui/debug/DebugUi.cs" id="1_42umb"]
+[ext_resource type="PackedScene" uid="uid://cbjjaa32ehlky" path="res://src/ui/debug/FPS.tscn" id="1_kftc2"]
+
+[node name="DebugUi" type="Node2D"]
+script = ExtResource("1_42umb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FPS" parent="CanvasLayer" instance=ExtResource("1_kftc2")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_right = 58.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="MousePosition" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
