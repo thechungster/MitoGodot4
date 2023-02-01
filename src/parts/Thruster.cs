@@ -19,10 +19,11 @@ public partial class Thruster : BasePart
     private Vector2 thrust = new Vector2(0, -100);
     public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
-        if (isActive)
+        if (isActive && isSet)
         {
             // base._IntegrateForces(state);
-            ApplyForce(thrust.Rotated(Rotation));
+            PhysicsBody2D parent = (PhysicsBody2D)GetParent();
+            ApplyForce(thrust.Rotated(Rotation + parent.Rotation));
         }
     }
 }

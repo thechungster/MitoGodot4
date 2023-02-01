@@ -20,7 +20,7 @@ public partial class BasePlayer : Node2D
         }
     }
 
-    public Vector2 GetNearestPointOnBody(Vector2 point)
+    public NearestPointInfo GetNearestPointOnBody(Vector2 point)
     {
         return baseBody.GetNearestPoint(point);
     }

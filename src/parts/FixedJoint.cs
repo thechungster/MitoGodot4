@@ -10,16 +10,17 @@ public partial class FixedJoint : PinJoint2D
     /// <summary>
     /// Connect a fixed joint between two bodies. The first body should already exist, the second body should be the new part being added.
     /// </summary>
-    public void ConnectBodies(PhysicsBody2D bodyA, PhysicsBody2D bodyB)
+    public void ConnectBodies(PhysicsBody2D partAdded, PhysicsBody2D existingPart)
     {
         DisableCollision = true;
-        bodyA.AddChild(this);
-        NodeA = bodyA.GetPath();
-        NodeB = bodyB.GetPath();
+        partAdded.AddChild(this);
+        NodeA = partAdded.GetPath();
+        NodeB = existingPart.GetPath();
 
-        float angleToBody = (GlobalPosition - bodyB.GlobalPosition).Angle();
-        PhysicsBody2D parentBody = (PhysicsBody2D)GetParent();
-        rotationFix = parentBody.GlobalRotation - angleToBody;
+        rotationFix = partAdded.Rotation;
+        // float angleToBody = (GlobalPosition - existingPart.GlobalPosition).Angle();
+        // PhysicsBody2D parentBody = (PhysicsBody2D)GetParent();
+        // rotationFix = parentBody.GlobalRotation - angleToBody;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -34,8 +35,7 @@ public partial class FixedJoint : PinJoint2D
             GD.PrintErr("NodeB cannot be found");
         }
         PhysicsBody2D parentBody = (PhysicsBody2D)GetParent();
-        GD.Print(GlobalPosition);
         float angleToBody = (GlobalPosition - bodyB.GlobalPosition).Angle();
-        parentBody.SetDeferred("rotation", angleToBody + rotationFix);
+        parentBody.SetDeferred("rotation", rotationFix);
     }
 }

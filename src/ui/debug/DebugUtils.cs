@@ -3,7 +3,23 @@ using System;
 
 public partial class DebugUtils : Node
 {
-    public void CreateGlobalPosDebugIcon(Node parent, Vector2 position)
+
+    public static DebugUtils GetInstance(Node node)
+    {
+        return node.GetNode<DebugUtils>("/root/DebugUtils");
+    }
+
+    public static void CreateLocalPosDebugIcon(Node parent, Vector2 position)
+    {
+        DebugUtils.GetInstance(parent)._createLocalPosDebugIcon(parent, position);
+    }
+
+    public static void CreateGlobalPosDebugIcon(Node parent, Vector2 position)
+    {
+        DebugUtils.GetInstance(parent)._createGlobalPosDebugIcon(parent, position);
+    }
+
+    public void _createGlobalPosDebugIcon(Node parent, Vector2 position)
     {
         PackedScene scene = GD.Load<PackedScene>("res://src/ui/debug/DebugPoint.tscn");
         Node2D n = scene.Instantiate<Node2D>();
@@ -11,7 +27,7 @@ public partial class DebugUtils : Node
         parent.AddChild(n);
     }
 
-    public void CreateLocalPosDebugIcon(Node parent, Vector2 position)
+    private void _createLocalPosDebugIcon(Node parent, Vector2 position)
     {
         PackedScene scene = GD.Load<PackedScene>("res://src/ui/debug/DebugPoint.tscn");
         Node2D n = scene.Instantiate<Node2D>();

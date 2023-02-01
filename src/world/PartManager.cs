@@ -22,17 +22,14 @@ public partial class PartManager : Node2D
         if (activePart != null)
         {
             // Place part on closest point on the player body
-            closestPoint = player.GetNearestPointOnBody(player.GetLocalMousePosition());
-            activePart.Position = closestPoint;
+            NearestPointInfo nearestPointInfo = player.GetNearestPointOnBody(player.GetGlobalMousePosition());
+            closestPoint = nearestPointInfo.NearestPoint;
+            activePart.GlobalPosition = closestPoint;
 
             // Figure out the rotation pointing to the mouse
-            Vector2 v = activePart.GlobalPosition - activePart.GetGlobalMousePosition();
-            float rotateRads = (float)Math.Atan(v.y / v.x) + (float)Math.PI / 2;
-            if (v.x <= 0)
-            {
-                rotateRads += (float)Math.PI;
-            }
-            activePart.Rotation = (float)(rotateRads % (2 * Math.PI));
+            Vector2 direction = activePart.GetGlobalMousePosition() - activePart.GlobalPosition;
+            float rotateRads = (float)Math.Atan(direction.y / direction.x) + (float)Math.PI / 2;
+            activePart.Rotation = (float)(rotateRads) - player.GetBaseBody().Rotation;
         }
     }
 
@@ -47,6 +44,7 @@ public partial class PartManager : Node2D
             // finalize part    
             FixedJoint joint = new FixedJoint();
             joint.ConnectBodies(activePart, player.GetBaseBody());
+            activePart.FinishSet();
             activePart = null;
         }
     }
@@ -57,6 +55,7 @@ public partial class PartManager : Node2D
         PackedScene thrusterScene = GD.Load<PackedScene>("res://src/parts/Thruster.tscn");
         Thruster thruster = thrusterScene.Instantiate<Thruster>();
         activePart = thruster;
+        // AddChild(activePart);
         player.AddPart(activePart);
     }
 }

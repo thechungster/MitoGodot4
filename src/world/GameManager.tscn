@@ -26,4 +26,12 @@ position = Vector2(42, -159)
 
 [node name="BasePlayer" parent="." instance=ExtResource("1_kvdmu")]
 unique_name_in_owner = true
-position = Vector2(-20, 17)
+position = Vector2(338, 343)
+
+[node name="BaseBody" parent="BasePlayer" index="0"]
+position = Vector2(-338, -343)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="BasePlayer/BaseBody" index="3"]
+remote_path = NodePath("../../../Camera2D")
+
+[editable path="BasePlayer"]
