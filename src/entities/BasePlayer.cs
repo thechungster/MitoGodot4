@@ -4,13 +4,10 @@ using System;
 public partial class BasePlayer : Node2D
 {
     private BaseBody baseBody;
+    private BasePart progressPart = null;
     public override void _Ready()
     {
         baseBody = GetNode<BaseBody>("%BaseBody");
-        GD.Print(baseBody);
-        // Thruster thruster = GetNode<Thruster>("%Thruster");
-        // FixedJoint joint = new FixedJoint();
-        // joint.ConnectBodies(baseBody, thruster);
     }
 
     public override void _Process(double delta)
@@ -22,7 +19,7 @@ public partial class BasePlayer : Node2D
 
     public NearestPointInfo GetNearestPointOnBody(Vector2 point)
     {
-        return baseBody.GetNearestPoint(point);
+        return baseBody.GetNearestPoint(point, baseBody);
     }
 
     public BaseBody GetBaseBody()
@@ -30,8 +27,26 @@ public partial class BasePlayer : Node2D
         return baseBody;
     }
 
-    public void AddPart(BasePart part)
+    /// <summary>
+    /// Part that is just in progress and temporarily added as a child. Will be removed once the part is either finalized or canceled.
+    /// </summary>
+    public void AddProgressPart(BasePart part)
     {
+        progressPart = part;
         baseBody.AddChild(part);
+    }
+
+    public void FinalizePart(NearestPointInfo nearestPointInfo)
+    {
+        if (progressPart == null)
+        {
+            GD.PrintErr("Progress part is null");
+        }
+        FixedJoint joint = new FixedJoint();
+        joint.ConnectBodies(progressPart, nearestPointInfo.Part);
+        // baseBody.RemoveChild(progressPart);
+        nearestPointInfo.Part.AttachPart(progressPart);
+        progressPart.FinishSet();
+        progressPart = null;
     }
 }

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpfwpv7prbrk4"]
+[gd_scene load_steps=7 format=3 uid="uid://bpfwpv7prbrk4"]
 
 [ext_resource type="PackedScene" uid="uid://bk5px0kqugtfk" path="res://src/world/PartManager.tscn" id="1_gtksi"]
 [ext_resource type="PackedScene" uid="uid://c6ifaa28dwthi" path="res://src/entities/BasePlayer.tscn" id="1_kvdmu"]
 [ext_resource type="Script" path="res://src/world/GameManager.cs" id="1_yr8ac"]
 [ext_resource type="PackedScene" uid="uid://crq4hg8gkuako" path="res://src/ui/debug/DebugUi.tscn" id="4_u7gr7"]
 [ext_resource type="PackedScene" uid="uid://duiw4djy31ado" path="res://src/ui/debug/DebugPoint.tscn" id="5_xrcpc"]
+[ext_resource type="Texture2D" uid="uid://cvxd11od4214f" path="res://assets/background.png" id="6_43ree"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_yr8ac")
@@ -33,5 +34,13 @@ position = Vector2(-338, -343)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="BasePlayer/BaseBody" index="3"]
 remote_path = NodePath("../../../Camera2D")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("6_43ree")
 
 [editable path="BasePlayer"]
