@@ -3,9 +3,21 @@ using System;
 
 public partial class BasePart : RigidBody2D
 {
+    protected bool isActive = false;
+
+    public override void _Ready()
+    {
+
+    }
+
     public virtual Vector2 GetNearestPoint(Vector2 point)
     {
-        throw new NotImplementedException("Needs to be implemented");
+        Polygon2D polygon = GetNode<Polygon2D>("%Polygon2D");
+        if (polygon == null)
+        {
+            throw new NotImplementedException("Part has no polygon.");
+        }
+        return getNearestPointOnPolygon(polygon.Polygon, point);
     }
 
     protected Vector2 getNearestPointOnPolygon(Vector2[] polygon, Vector2 point)
@@ -16,14 +28,11 @@ public partial class BasePart : RigidBody2D
         {
             Line2D line = new Line2D();
 
-            DebugUtils utils = GetNode<DebugUtils>("/root/DebugUtils");
-
             line.AddPoint(polygon[i]);
             line.AddPoint(polygon[(i + 1) % polygon.Length]);
 
             Vector2 nearestPoint = getNearestPoint(line, point);
             float distanceSquared = point.DistanceSquaredTo(nearestPoint);
-
 
             if (distanceSquared < minDistanceSquared)
             {

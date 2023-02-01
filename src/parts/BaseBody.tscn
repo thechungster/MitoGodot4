@@ -1,23 +1,22 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyvhjmqcr4j1x"]
 
 [ext_resource type="Texture2D" uid="uid://26718xco212s" path="res://assets/base_ship.png" id="1_b0syv"]
-[ext_resource type="Script" path="res://src/parts/BaseBody.cs" id="1_skxox"]
+[ext_resource type="Script" path="res://src/parts/BaseBody.cs" id="1_dwxv6"]
 
 [node name="BaseBody" type="RigidBody2D"]
-mass = 10.0
 gravity_scale = 0.0
-script = ExtResource("1_skxox")
+script = ExtResource("1_dwxv6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_b0syv")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-unique_name_in_owner = true
-scale = Vector2(3.49698, 0.749256)
-build_mode = 1
-polygon = PackedVector2Array(-4.86133, -42.7091, -4.86133, -20.0199, -8.57882, -20.0199, -8.57882, 42.7091, 8.29286, 42.7091, 8.29286, -20.0199, 4.86133, -20.0199, 4.86133, -42.7091)
-
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
-polygon = PackedVector2Array(17, -32, -17, -32, -17, -15, -30, -15, -30, 31, 31, 33, 30, -14, 17, -14)
-polygons = [Vector2(0, 0), null, null, null, null, null, null, null]
+visible = false
+position = Vector2(-2.89362, 0)
+scale = Vector2(0.829787, 1)
+polygon = PackedVector2Array(-17, -32, 23.9744, -32, 23.9744, -15, 39.641, -15, 40.8462, 32, -32.6667, 32, -32.6667, -15, -17, -15)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-15, -30, 15, -30, 15, -14, 29, -14, 29, 31, -29, 31, -29, -13, -15, -13)

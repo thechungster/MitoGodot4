@@ -8,11 +8,19 @@ size = Vector2(10, 16)
 
 [node name="Thruster" type="RigidBody2D"]
 gravity_scale = 0.0
+can_sleep = false
 script = ExtResource("1_bcp3u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
+position = Vector2(0, 8)
 texture = ExtResource("1_pycw8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_nvvps")
+disabled = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-5, 0, 5, 0, 5, 12, 8, 16, -8, 16, -5, 12)

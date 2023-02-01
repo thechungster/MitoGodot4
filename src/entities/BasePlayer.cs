@@ -6,10 +6,9 @@ public partial class BasePlayer : Node2D
     private BaseBody baseBody;
     public override void _Ready()
     {
-        base._Ready();
-
         baseBody = GetNode<BaseBody>("%BaseBody");
-        Thruster thruster = GetNode<Thruster>("%Thruster");
+        GD.Print(baseBody);
+        // Thruster thruster = GetNode<Thruster>("%Thruster");
         // FixedJoint joint = new FixedJoint();
         // joint.ConnectBodies(baseBody, thruster);
     }
@@ -24,5 +23,15 @@ public partial class BasePlayer : Node2D
     public Vector2 GetNearestPointOnBody(Vector2 point)
     {
         return baseBody.GetNearestPoint(point);
+    }
+
+    public BaseBody GetBaseBody()
+    {
+        return baseBody;
+    }
+
+    public void AddPart(BasePart part)
+    {
+        baseBody.AddChild(part);
     }
 }

@@ -1,15 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6ifaa28dwthi"]
+[gd_scene load_steps=3 format=3 uid="uid://c6ifaa28dwthi"]
 
 [ext_resource type="Script" path="res://src/entities/BasePlayer.cs" id="1_w8old"]
-[ext_resource type="PackedScene" uid="uid://dld5gbfmakd1m" path="res://src/parts/Thruster.tscn" id="2_5g34d"]
 [ext_resource type="PackedScene" uid="uid://cyvhjmqcr4j1x" path="res://src/parts/BaseBody.tscn" id="2_bxei6"]
 
 [node name="BasePlayer" type="Node2D"]
 script = ExtResource("1_w8old")
-
-[node name="Thruster" parent="." instance=ExtResource("2_5g34d")]
-unique_name_in_owner = true
-position = Vector2(-44, 41)
 
 [node name="BaseBody" parent="." instance=ExtResource("2_bxei6")]
 unique_name_in_owner = true

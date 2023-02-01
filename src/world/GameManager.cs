@@ -3,12 +3,13 @@ using System;
 
 public partial class GameManager : Node2D
 {
-
+    private PartManager partManager;
+    private BasePlayer basePlayer;
     public override void _Ready()
     {
         base._Ready();
-        BasePlayer basePlayer = GetNode<BasePlayer>("%BasePlayer");
-        PartManager partManager = GetNode<PartManager>("%PartManager");
+        basePlayer = GetNode<BasePlayer>("%BasePlayer");
+        partManager = GetNode<PartManager>("%PartManager");
         partManager.SetBasePlayer(basePlayer);
     }
 
