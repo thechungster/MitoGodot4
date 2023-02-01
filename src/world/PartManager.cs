@@ -27,8 +27,8 @@ public partial class PartManager : Node2D
             activePart.GlobalPosition = closestPoint;
 
             // Figure out the rotation pointing to the mouse
-            Vector2 direction = activePart.GetGlobalMousePosition() - activePart.GlobalPosition;
-            float rotateRads = (float)Math.Atan(direction.y / direction.x) + (float)Math.PI / 2;
+            Vector2 direction = activePart.GlobalPosition - activePart.GetGlobalMousePosition();
+            float rotateRads = (float)Math.Atan2((double)direction.y, (double)direction.x) + (float)Math.PI / 2;
             activePart.Rotation = (float)(rotateRads) - player.GetBaseBody().Rotation;
         }
     }
