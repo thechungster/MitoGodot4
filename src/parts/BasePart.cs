@@ -19,6 +19,50 @@ public partial class BasePart : RigidBody2D
         savedRotation = Rotation;
     }
 
+    public void MoveTowards(List<Vector2> directions)
+    {
+        if (this is MovementBasePart)
+        {
+            bool shouldDeactivate = true;
+            foreach (Vector2 direction in directions)
+            {
+                MovementBasePart currentPart = (MovementBasePart)this;
+                Vector2 movementDirection = currentPart.GetMovementDirection();
+                Vector2 normalizedMovementDirection = movementDirection.Normalized();
+                // 1 is similar, -1 is opposite.
+                float similiarity = direction.Normalized().Dot(normalizedMovementDirection);
+                if (similiarity > 0)
+                {
+                    shouldDeactivate = false;
+                    currentPart.Activate();
+                }
+                if (shouldDeactivate)
+                {
+                    currentPart.Deactivate();
+                }
+            }
+        }
+        foreach (BasePart attachedPart in attachedParts)
+        {
+            attachedPart.MoveTowards(directions);
+        }
+
+    }
+
+    public void DeactivateAll()
+    {
+        if (this is MovementBasePart)
+        {
+            MovementBasePart currentPart = (MovementBasePart)this;
+            currentPart.Deactivate();
+        }
+
+        foreach (BasePart attachedPart in attachedParts)
+        {
+            attachedPart.DeactivateAll();
+        }
+    }
+
 
     /// <summary>
     /// Attach a part to the current part.

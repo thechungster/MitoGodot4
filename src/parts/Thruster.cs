@@ -1,9 +1,11 @@
 using Godot;
 using System;
 
-public partial class Thruster : BasePart
+public partial class Thruster : MovementBasePart
 {
     private AnimatedSprite2D _thrusterFire;
+    private Vector2 thrust = new Vector2(0, -100);
+
     public override void _Ready()
     {
         _thrusterFire = GetNode<AnimatedSprite2D>("%ThrusterFire");
@@ -13,11 +15,11 @@ public partial class Thruster : BasePart
     {
         if (Input.IsActionPressed("thruster"))
         {
-            _isActive = true;
+            Activate();
         }
         if (Input.IsActionJustReleased("thruster"))
         {
-            _isActive = false;
+            Deactivate();
         }
         if (_isSet)
         {
@@ -25,20 +27,20 @@ public partial class Thruster : BasePart
         }
     }
 
-
-    private Vector2 thrust = new Vector2(0, -100);
-    public override void _IntegrateForces(PhysicsDirectBodyState2D state)
+    public override Vector2 GetMovementDirection()
     {
         PhysicsBody2D parent = (PhysicsBody2D)GetParent();
         Vector2 thrustDirection = thrust.Rotated(parent.Rotation + savedRotation);
         float rotateRads = (float)Math.Atan2((double)-1 * thrustDirection.y, (double)thrustDirection.x) + (float)(Math.PI / 2 * 3);
 
-        DebugUtils.CreateSingleGlobalDebugArrow(this, Vector2.Zero, rotateRads);
+        return thrust.Rotated(parent.Rotation + savedRotation);
+    }
 
+    public override void _IntegrateForces(PhysicsDirectBodyState2D state)
+    {
         if (_isActive && _isSet)
         {
-            Vector2 rotatedThrust = thrust.Rotated(parent.Rotation + savedRotation);
-            ApplyForce(rotatedThrust);
+            ApplyForce(GetMovementDirection());
         }
     }
 }
