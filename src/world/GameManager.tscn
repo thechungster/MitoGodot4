@@ -41,6 +41,7 @@ remote_path = NodePath("../../../Camera2D")
 motion_mirroring = Vector2(1920, 1080)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(-108, -148)
 texture = ExtResource("6_43ree")
 
 [editable path="BasePlayer"]
