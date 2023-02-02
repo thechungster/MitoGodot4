@@ -3,15 +3,25 @@ using System;
 
 public partial class Thruster : BasePart
 {
+    private AnimatedSprite2D _thrusterFire;
+    public override void _Ready()
+    {
+        _thrusterFire = GetNode<AnimatedSprite2D>("%ThrusterFire");
+    }
+
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("thruster"))
+        if (Input.IsActionPressed("thruster"))
         {
-            isActive = true;
+            _isActive = true;
         }
         if (Input.IsActionJustReleased("thruster"))
         {
-            isActive = false;
+            _isActive = false;
+        }
+        if (_isSet)
+        {
+            _thrusterFire.Visible = _isActive;
         }
     }
 
@@ -25,7 +35,7 @@ public partial class Thruster : BasePart
 
         DebugUtils.CreateSingleGlobalDebugArrow(this, Vector2.Zero, rotateRads);
 
-        if (isActive && isSet)
+        if (_isActive && _isSet)
         {
             Vector2 rotatedThrust = thrust.Rotated(parent.Rotation + savedRotation);
             ApplyForce(rotatedThrust);

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public partial class BasePart : RigidBody2D
 {
-    protected bool isActive = false;
-    protected bool isSet = false;
+    protected bool _isActive = false;
+    protected bool _isSet = false;
     protected List<BasePart> attachedParts = new List<BasePart>();
     // For some reason the Rotation from _IntegrateForces is different from the actual Rotation, so we save it here.
     protected float savedRotation;
@@ -13,7 +13,7 @@ public partial class BasePart : RigidBody2D
 
     public void FinishSet()
     {
-        isSet = true;
+        _isSet = true;
         CollisionShape2D collisionShape = GetNode<CollisionShape2D>("%CollisionShape2D");
         collisionShape.Disabled = false;
         savedRotation = Rotation;
