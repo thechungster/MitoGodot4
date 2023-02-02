@@ -8,6 +8,7 @@ public partial class Thruster : MovementBasePart
 
     public override void _Ready()
     {
+        base._Ready();
         _thrusterFire = GetNode<AnimatedSprite2D>("%ThrusterFire");
     }
 

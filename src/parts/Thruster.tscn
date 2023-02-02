@@ -50,6 +50,7 @@ can_sleep = false
 script = ExtResource("1_bcp3u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 3
 position = Vector2(0, 8)
 texture = ExtResource("2_aw8ph")

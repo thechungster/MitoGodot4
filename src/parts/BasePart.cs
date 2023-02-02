@@ -7,9 +7,15 @@ public partial class BasePart : RigidBody2D
     protected bool _isActive = false;
     protected bool _isSet = false;
     protected List<BasePart> attachedParts = new List<BasePart>();
+    private Sprite2D _sprite;
     // For some reason the Rotation from _IntegrateForces is different from the actual Rotation, so we save it here.
     protected float savedRotation;
 
+    public override void _Ready()
+    {
+        _sprite = GetNode<Sprite2D>("%Sprite2D");
+        _sprite.SelfModulate = new Color(1, 1, 1, 0.5f);
+    }
 
     public void FinishSet()
     {
@@ -17,6 +23,7 @@ public partial class BasePart : RigidBody2D
         CollisionShape2D collisionShape = GetNode<CollisionShape2D>("%CollisionShape2D");
         collisionShape.Disabled = false;
         savedRotation = Rotation;
+        _sprite.SelfModulate = new Color(1, 1, 1, 1);
     }
 
     public void MoveTowards(List<Vector2> directions)
@@ -70,7 +77,6 @@ public partial class BasePart : RigidBody2D
     public void AttachPart(BasePart part)
     {
         attachedParts.Add(part);
-        // AddChild(part);
     }
 
     public virtual NearestPointInfo GetNearestPoint(Vector2 point, BaseBody baseBody)
