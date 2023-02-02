@@ -34,7 +34,7 @@ public partial class PartManager : Node2D
         {
             return;
         }
-        _isSaveable = !player.GetBaseBody().DoesProgressPartCollide(player.GetBaseBody(), activePart);
+        _isSaveable = !player.GetBaseBody().DoesPartCollide(activePart);
         Color color = _isSaveable ? CustomColors.IN_PROGRESS : CustomColors.INVALID;
         activePart.Modulate = color;
         if (stepNumber == StepNumber.POSITION)

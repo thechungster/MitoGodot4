@@ -37,17 +37,16 @@ public partial class BasePart : RigidBody2D
         _sprite.SelfModulate = c;
     }
 
-    public bool DoesProgressPartCollide(BaseBody body, BasePart attachingPart)
+    public bool DoesPartCollide(BasePart attachingPart)
     {
-        float bodyRotation = (this is BaseBody) ? 0 : body.Rotation;
-        if (CustomMath.DoPartsIntersect(this, attachingPart, bodyRotation))
+        if (CustomMath.DoPartsIntersect(this, attachingPart))
         {
             return true;
         }
 
         foreach (BasePart attachedPart in attachedParts)
         {
-            if (attachedPart.DoesProgressPartCollide(body, attachingPart))
+            if (attachedPart.DoesPartCollide(attachingPart))
             {
                 return true;
             }

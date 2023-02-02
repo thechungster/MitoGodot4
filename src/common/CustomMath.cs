@@ -5,12 +5,11 @@ using System.Collections.Generic;
 public class CustomMath
 {
 
-    public static bool DoPartsIntersect(BasePart partOne, BasePart partTwo, float rotation)
+    public static bool DoPartsIntersect(BasePart partOne, BasePart partTwo)
     {
-        Vector2[] polygonVectorOne = _createPolygonVector(partOne.GetPolygon(), partOne.GlobalPosition, partOne.Rotation);
-        Vector2[] polygonVectorTwo = _createPolygonVector(partTwo.GetPolygon(), partTwo.GlobalPosition, partOne.Rotation + partTwo.Rotation);
+        Vector2[] polygonVectorOne = _createPolygonVector(partOne.GetPolygon(), partOne.GlobalPosition, partOne.GlobalRotation);
+        Vector2[] polygonVectorTwo = _createPolygonVector(partTwo.GetPolygon(), partTwo.GlobalPosition, partTwo.GlobalRotation);
         Array<Vector2[]> collisions = Geometry2D.IntersectPolygons(polygonVectorOne, polygonVectorTwo);
-        GD.Print(partOne.Rotation, " : ", partTwo.Rotation);
         return collisions.Count > 0;
     }
 
