@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://co3a87cw2xp2f" path="res://assets/parts/ThrusterFireSheet.png" id="3_q1udr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvvps"]
-size = Vector2(10, 16)
+size = Vector2(9.99961, 15.9379)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gb4tj"]
 atlas = ExtResource("3_q1udr")
@@ -57,14 +57,13 @@ texture = ExtResource("2_aw8ph")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 8)
+position = Vector2(0.000192232, 8.03103)
 shape = SubResource("RectangleShape2D_nvvps")
 disabled = true
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
-visible = false
-polygon = PackedVector2Array(-5, 0, 5, 0, 5, 12, 8, 16, -8, 16, -5, 12)
+polygon = PackedVector2Array(-4.9872, 1.06199, 5.01203, 0.93786, 5, 12, 8, 16, -8, 16, -5, 12)
 
 [node name="ThrusterFire" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

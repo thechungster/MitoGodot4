@@ -20,6 +20,8 @@ public partial class FixedJoint : PinJoint2D
 
         positionFix = partAdded.Position;
         rotationFix = partAdded.Rotation;
+
+        partAdded.TreeExiting += _disconnectJoint;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -36,5 +38,11 @@ public partial class FixedJoint : PinJoint2D
         PhysicsBody2D parentBody = (PhysicsBody2D)GetParent();
         parentBody.SetDeferred("rotation", rotationFix);
         parentBody.SetDeferred("position", positionFix);
+    }
+
+    private void _disconnectJoint()
+    {
+        NodeA = null;
+        NodeB = null;
     }
 }

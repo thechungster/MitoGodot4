@@ -8,13 +8,19 @@ public partial class BasePart : RigidBody2D
     protected bool _isSet = false;
     protected List<BasePart> attachedParts = new List<BasePart>();
     private Sprite2D _sprite;
+    private Polygon2D _polygon2D;
     // For some reason the Rotation from _IntegrateForces is different from the actual Rotation, so we save it here.
     protected float savedRotation;
 
     public override void _Ready()
     {
+        _polygon2D = GetNode<Polygon2D>("%Polygon2D");
+    }
+
+    protected void partReady()
+    {
         _sprite = GetNode<Sprite2D>("%Sprite2D");
-        _sprite.SelfModulate = new Color(1, 1, 1, 0.5f);
+        _sprite.SelfModulate = CustomColors.IN_PROGRESS;
     }
 
     public void FinishSet()
@@ -23,7 +29,30 @@ public partial class BasePart : RigidBody2D
         CollisionShape2D collisionShape = GetNode<CollisionShape2D>("%CollisionShape2D");
         collisionShape.Disabled = false;
         savedRotation = Rotation;
-        _sprite.SelfModulate = new Color(1, 1, 1, 1);
+        _sprite.SelfModulate = CustomColors.FINAL;
+    }
+
+    public void SelfModulateSprite(Color c)
+    {
+        _sprite.SelfModulate = c;
+    }
+
+    public bool DoesProgressPartCollide(BaseBody body, BasePart attachingPart)
+    {
+        float bodyRotation = (this is BaseBody) ? 0 : body.Rotation;
+        if (CustomMath.DoPartsIntersect(this, attachingPart, bodyRotation))
+        {
+            return true;
+        }
+
+        foreach (BasePart attachedPart in attachedParts)
+        {
+            if (attachedPart.DoesProgressPartCollide(body, attachingPart))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void MoveTowards(List<Vector2> directions)
@@ -53,7 +82,6 @@ public partial class BasePart : RigidBody2D
         {
             attachedPart.MoveTowards(directions);
         }
-
     }
 
     public void DeactivateAll()
@@ -70,7 +98,6 @@ public partial class BasePart : RigidBody2D
         }
     }
 
-
     /// <summary>
     /// Attach a part to the current part.
     /// </summary>
@@ -81,8 +108,7 @@ public partial class BasePart : RigidBody2D
 
     public virtual NearestPointInfo GetNearestPoint(Vector2 point, BaseBody baseBody)
     {
-        Polygon2D polygon = GetNode<Polygon2D>("%Polygon2D");
-        if (polygon == null)
+        if (_polygon2D == null)
         {
             throw new NotImplementedException("Part has no polygon.");
         }
@@ -96,7 +122,7 @@ public partial class BasePart : RigidBody2D
             }
         }
 
-        Vector2[] vertices = polygon.Polygon;
+        Vector2[] vertices = _polygon2D.Polygon;
         float minDistanceSquared = float.MaxValue;
         Vector2 minDistancePoint = Vector2.Zero;
         Line2D minDistanceLine = new Line2D();
@@ -126,6 +152,14 @@ public partial class BasePart : RigidBody2D
         return nearestPointInfo;
     }
 
+    public Polygon2D GetPolygon()
+    {
+        return _polygon2D;
+    }
+
+    // public Vector2[] GetAdjustedPolygon() {
+    // return _polygon2D.P
+    // }
 
     private Vector2 getNearestPoint(Line2D line, Vector2 point)
     {

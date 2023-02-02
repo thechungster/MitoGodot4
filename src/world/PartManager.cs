@@ -16,6 +16,7 @@ public partial class PartManager : Node2D
     private NearestPointInfo nearestPointInfo = null;
     private StepNumber stepNumber = StepNumber.UNSET;
     private SavedPart _savedPart = null;
+    private bool _isSaveable = false;
 
     public override void _Ready()
     {
@@ -33,6 +34,9 @@ public partial class PartManager : Node2D
         {
             return;
         }
+        _isSaveable = !player.GetBaseBody().DoesProgressPartCollide(player.GetBaseBody(), activePart);
+        Color color = _isSaveable ? CustomColors.IN_PROGRESS : CustomColors.INVALID;
+        activePart.Modulate = color;
         if (stepNumber == StepNumber.POSITION)
         {
             _updateActivePartPosition();
@@ -48,6 +52,7 @@ public partial class PartManager : Node2D
 
     public override void _UnhandledInput(InputEvent @event)
     {
+
         if (@event.IsActionReleased(InputMapping.LEFT_MOUSE))
         {
             if (activePart == null || stepNumber == StepNumber.UNSET)
@@ -58,9 +63,9 @@ public partial class PartManager : Node2D
             {
                 stepNumber++;
             }
-            else if (stepNumber == StepNumber.ROTATION)
+            else if (stepNumber == StepNumber.ROTATION && _isSaveable)
             {
-                // finalize part    
+                // finalize part
                 player.FinalizePart(nearestPointInfo);
                 activePart = null;
             }
