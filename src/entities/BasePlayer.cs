@@ -36,6 +36,12 @@ public partial class BasePlayer : Node2D
         baseBody.AddChild(part);
     }
 
+    public void RemoveProgressPart()
+    {
+        baseBody.RemoveChild(progressPart);
+        progressPart = null;
+    }
+
     public void FinalizePart(NearestPointInfo nearestPointInfo)
     {
         if (progressPart == null)

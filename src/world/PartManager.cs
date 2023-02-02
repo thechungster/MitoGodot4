@@ -46,12 +46,26 @@ public partial class PartManager : Node2D
         }
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed(InputMapping.ESCAPE) && activePart != null)
+        {
+            player.RemoveProgressPart();
+            activePart = null;
+        }
+    }
+
     protected void ButtonOnePressed()
     {
         GD.Print("Part one pressed");
         PackedScene thrusterScene = GD.Load<PackedScene>("res://src/parts/Thruster.tscn");
         Thruster thruster = thrusterScene.Instantiate<Thruster>();
-        activePart = thruster;
+        _addProgressPart(thruster);
+    }
+
+    private void _addProgressPart(BasePart part)
+    {
+        activePart = part;
         player.AddProgressPart(activePart);
     }
 }
