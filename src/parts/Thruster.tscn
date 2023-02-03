@@ -1,11 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b767ojfy7patv"]
+[gd_scene load_steps=9 format=3 uid="uid://b767ojfy7patv"]
 
 [ext_resource type="Script" path="res://src/parts/Thruster.cs" id="1_bcp3u"]
 [ext_resource type="Texture2D" uid="uid://1bkif56hcaug" path="res://assets/parts/Thruster.png" id="2_aw8ph"]
 [ext_resource type="Texture2D" uid="uid://co3a87cw2xp2f" path="res://assets/parts/ThrusterFireSheet.png" id="3_q1udr"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nvvps"]
-size = Vector2(9.99961, 15.9379)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gb4tj"]
 atlas = ExtResource("3_q1udr")
@@ -55,14 +52,9 @@ texture_filter = 3
 position = Vector2(0, 8)
 texture = ExtResource("2_aw8ph")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0.000192232, 8.03103)
-shape = SubResource("RectangleShape2D_nvvps")
-disabled = true
-
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
+visible = false
 polygon = PackedVector2Array(-4.9872, 1.06199, 5.01203, 0.93786, 5, 12, 8, 16, -8, 16, -5, 12)
 
 [node name="ThrusterFire" type="AnimatedSprite2D" parent="."]
@@ -72,3 +64,8 @@ position = Vector2(0.211016, 16.9987)
 frames = SubResource("SpriteFrames_dr07l")
 animation = &"thruster_fire"
 playing = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-3.98728, 1.04957, 4.0121, 0.950272, 4.14864, 11.9494, 6.18573, 14.9244, -6.81327, 15.0857, -3.85074, 12.0487)
+disabled = true

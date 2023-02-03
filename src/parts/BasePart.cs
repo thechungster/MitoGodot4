@@ -17,6 +17,9 @@ public partial class BasePart : RigidBody2D
         _polygon2D = GetNode<Polygon2D>("%Polygon2D");
     }
 
+    /// <summary>
+    /// Should be called by all parts in the ready function that can be placed.
+    /// </summary>
     protected void partReady()
     {
         _sprite = GetNode<Sprite2D>("%Sprite2D");
@@ -26,7 +29,7 @@ public partial class BasePart : RigidBody2D
     public void FinishSet()
     {
         _isSet = true;
-        CollisionShape2D collisionShape = GetNode<CollisionShape2D>("%CollisionShape2D");
+        CollisionPolygon2D collisionShape = GetNode<CollisionPolygon2D>("%CollisionPolygon2D");
         collisionShape.Disabled = false;
         savedRotation = Rotation;
         _sprite.SelfModulate = CustomColors.FINAL;
