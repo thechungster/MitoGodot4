@@ -16,7 +16,8 @@ public partial class StaticShooter : AttackBasePart
     {
         PackedScene bulletScene = Preloader.Instance.GetResource<PackedScene>("res://src/parts/Bullet.tscn");
         Bullet bullet = bulletScene.Instantiate<Bullet>();
-        bullet.GlobalPosition = GlobalPosition + new Vector2(0, 12).Rotated(GlobalRotation);
+        bullet.Owner = this;
+        bullet.GlobalPosition = GlobalPosition + new Vector2(0, 16).Rotated(GlobalRotation);
         bullet.GlobalRotation = GlobalRotation;
         Player.AddChild(bullet);
     }
