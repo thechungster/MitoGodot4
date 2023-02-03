@@ -42,7 +42,6 @@ public partial class PartManager : Node2D
             _updateActivePartPosition();
         }
         // Always update Rotation
-        // _updateActivePartPosition();
         if (stepNumber == StepNumber.ROTATION)
         {
             _updateFixedPartPosition();
@@ -84,11 +83,28 @@ public partial class PartManager : Node2D
             }
         }
     }
+
     protected void ButtonOnePressed()
     {
-        PackedScene thrusterScene = GD.Load<PackedScene>("res://src/parts/StaticShooter.tscn");
-        StaticShooter thruster = thrusterScene.Instantiate<StaticShooter>();
-        _addProgressPart(thruster);
+        _addPart("res://src/parts/Thruster.tscn");
+    }
+
+    protected void ButtonTwoPressed()
+    {
+        _addPart("res://src/parts/StaticShooter.tscn");
+    }
+
+    private void _addPart(String partPath)
+    {
+        if (activePart != null)
+        {
+            GD.PrintErr("Cannot add a part when one is already being placed.");
+            return;
+        }
+        PackedScene partScene = GD.Load<PackedScene>(partPath);
+        BasePart part = partScene.Instantiate<BasePart>();
+        part.Player = player;
+        _addProgressPart(part);
     }
 
     private void _addProgressPart(BasePart part)

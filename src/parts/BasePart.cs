@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class BasePart : RigidBody2D
 {
+    public BasePlayer Player;
     protected bool _isActive = false;
     protected bool _isSet = false;
     protected List<BasePart> attachedParts = new List<BasePart>();
@@ -14,6 +15,10 @@ public partial class BasePart : RigidBody2D
 
     public override void _Ready()
     {
+        if (Player == null)
+        {
+            GD.PrintErr("Base player should be set on the part before instantiating.");
+        }
         _polygon2D = GetNode<Polygon2D>("%Polygon2D");
     }
 
@@ -28,11 +33,11 @@ public partial class BasePart : RigidBody2D
 
     public void FinishSet()
     {
-        _isSet = true;
         CollisionPolygon2D collisionShape = GetNode<CollisionPolygon2D>("%CollisionPolygon2D");
         collisionShape.Disabled = false;
         savedRotation = Rotation;
         _sprite.SelfModulate = CustomColors.FINAL;
+        _isSet = true;
     }
 
     public void SelfModulateSprite(Color c)

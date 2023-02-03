@@ -67,5 +67,5 @@ playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 unique_name_in_owner = true
-polygon = PackedVector2Array(-3.98728, 1.04957, 4.0121, 0.950272, 4.14864, 11.9494, 6.18573, 14.9244, -6.81327, 15.0857, -3.85074, 12.0487)
+polygon = PackedVector2Array(-4.9872, 1.06199, 5.01203, 0.93786, 5.14857, 11.937, 8.19799, 15.8995, -7.80078, 16.0981, -4.85066, 12.0611)
 disabled = true
