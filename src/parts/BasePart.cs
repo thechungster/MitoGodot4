@@ -34,7 +34,6 @@ public partial class BasePart : RigidBody2D
 
     public void FinishSet()
     {
-        GD.Print(Player);
         CollisionPolygon2D collisionShape = GetNode<CollisionPolygon2D>("%CollisionPolygon2D");
         collisionShape.Disabled = false;
         savedRotation = Rotation;

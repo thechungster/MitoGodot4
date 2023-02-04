@@ -19,9 +19,10 @@ public partial class BaseEnemy : BaseEntity
             BasePart childPart = (BasePart)child;
             childPart.Player = this;
             RemoveChild(childPart);
-            this.AddProgressPart(childPart);
-            NearestPointInfo info = new NearestPointInfo(child.GlobalPosition, new Line2D(), 0, childPart);
-            this.FinalizePart(info);
+            AddProgressPart(childPart);
+
+            NearestPointInfo info = new NearestPointInfo(child.GlobalPosition, new Line2D(), 0, GetBaseBody());
+            FinalizePart(info);
         }
     }
 }
