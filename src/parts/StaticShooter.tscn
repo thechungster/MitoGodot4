@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2guxpjpl4w4n"]
 
-[ext_resource type="Texture2D" path="res://assets/parts/StaticShooter.png" id="1_bd8ug"]
+[ext_resource type="Texture2D" uid="uid://cnycod3lqaity" path="res://assets/parts/StaticShooter.png" id="1_bd8ug"]
 [ext_resource type="Script" path="res://src/parts/StaticShooter.cs" id="1_bmi23"]
 
 [node name="StaticShooter" type="RigidBody2D"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhhmeuhcb3xg6"]
+
+[ext_resource type="Script" path="res://src/entities/ShooterEnemy.cs" id="1_eyrbs"]
+[ext_resource type="PackedScene" uid="uid://c6ifaa28dwthi" path="res://src/entities/BasePlayer.tscn" id="2_yw0v0"]
+[ext_resource type="Script" path="res://src/entities/BaseEnemy.cs" id="3_v1jbm"]
+[ext_resource type="PackedScene" uid="uid://b767ojfy7patv" path="res://src/parts/Thruster.tscn" id="3_w2fhi"]
+
+[node name="ShooterEnemy" type="Node2D"]
+script = ExtResource("1_eyrbs")
+
+[node name="BaseEnemy" parent="." instance=ExtResource("2_yw0v0")]
+unique_name_in_owner = true
+script = ExtResource("3_v1jbm")
+
+[node name="Thruster" parent="BaseEnemy" node_paths=PackedStringArray("Player") instance=ExtResource("3_w2fhi")]
+position = Vector2(30, 9)
+rotation = 4.71239
+scale = Vector2(1, 1)
+Player = NodePath("..")

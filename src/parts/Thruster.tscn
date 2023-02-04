@@ -41,7 +41,6 @@ animations = [{
 }]
 
 [node name="Thruster" type="RigidBody2D"]
-rotation = 0.012413
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource("1_bcp3u")

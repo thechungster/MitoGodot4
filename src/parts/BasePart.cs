@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public partial class BasePart : RigidBody2D
 {
-    public BasePlayer Player;
+    [Export]
+    public BaseEntity Player;
     protected bool _isActive = false;
     protected bool _isSet = false;
     protected List<BasePart> attachedParts = new List<BasePart>();
@@ -33,6 +34,7 @@ public partial class BasePart : RigidBody2D
 
     public void FinishSet()
     {
+        GD.Print(Player);
         CollisionPolygon2D collisionShape = GetNode<CollisionPolygon2D>("%CollisionPolygon2D");
         collisionShape.Disabled = false;
         savedRotation = Rotation;
@@ -135,7 +137,6 @@ public partial class BasePart : RigidBody2D
         Line2D minDistanceLine = new Line2D();
         for (int i = 0; i < vertices.Length; i++)
         {
-            // DebugUtils.CreateGlobalPosDebugIcon(this, vertices[i]);
             Line2D line = new Line2D();
             float rotation = this == baseBody ? Rotation : Rotation + baseBody.Rotation;
             line.AddPoint(vertices[i].Rotated(rotation) + GlobalPosition);
@@ -186,6 +187,9 @@ public partial class BasePart : RigidBody2D
     }
 }
 
+/// <summary>
+/// Information of the nearest point. Nearest point is the GLobalPosition
+/// </summary>
 public class NearestPointInfo
 {
     public Vector2 NearestPoint;
