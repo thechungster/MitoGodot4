@@ -33,7 +33,7 @@ public partial class Thruster : MovementBasePart
     {
         PhysicsBody2D parent = (PhysicsBody2D)GetParent();
         Vector2 thrustDirection = thrust.Rotated(parent.Rotation + savedRotation);
-        float rotateRads = (float)Math.Atan2((double)-1 * thrustDirection.y, (double)thrustDirection.x) + (float)(Math.PI / 2 * 3);
+        float rotateRads = (float)Math.Atan2((double)-1 * thrustDirection.Y, (double)thrustDirection.X) + (float)(Math.PI / 2 * 3);
 
         return thrust.Rotated(parent.Rotation + savedRotation);
     }

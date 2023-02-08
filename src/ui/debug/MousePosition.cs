@@ -12,8 +12,8 @@ public partial class MousePosition : Label
     public override void _Process(double delta)
     {
         Vector2 mousePos = GetGlobalMousePosition();
-        String x = mousePos.x.ToString();
-        String y = mousePos.y.ToString();
+        String x = mousePos.X.ToString();
+        String y = mousePos.Y.ToString();
         this.Text = x + ", " + y;
     }
 }

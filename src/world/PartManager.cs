@@ -138,7 +138,7 @@ public partial class PartManager : Node2D
     private void _updateActivePartRotation()
     {
         Vector2 direction = activePart.GlobalPosition - activePart.GetGlobalMousePosition();
-        float rotateRads = (float)Math.Atan2((double)direction.y, (double)direction.x) + (float)Math.PI / 2;
+        float rotateRads = (float)Math.Atan2((double)direction.Y, (double)direction.X) + (float)Math.PI / 2;
         activePart.Rotation = (float)(rotateRads) - player.GetBaseBody().Rotation;
     }
 

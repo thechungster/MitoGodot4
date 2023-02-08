@@ -60,9 +60,8 @@ polygon = PackedVector2Array(-4.9872, 1.06199, 5.01203, 0.93786, 5, 12, 8, 16, -
 unique_name_in_owner = true
 visible = false
 position = Vector2(0.211016, 16.9987)
-frames = SubResource("SpriteFrames_dr07l")
+sprite_frames = SubResource("SpriteFrames_dr07l")
 animation = &"thruster_fire"
-playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 unique_name_in_owner = true

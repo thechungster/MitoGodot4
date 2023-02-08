@@ -24,8 +24,8 @@ public partial class DebugUi : Node2D
     private void UpdateMousePosLabel()
     {
         Vector2 mousePos = GetGlobalMousePosition();
-        String x = mousePos.x.ToString();
-        String y = mousePos.y.ToString();
+        String x = mousePos.X.ToString();
+        String y = mousePos.Y.ToString();
         this.mousePositionLabel.Text = x + ", " + y;
         timer.Start();
     }

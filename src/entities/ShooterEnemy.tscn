@@ -15,5 +15,4 @@ script = ExtResource("3_v1jbm")
 [node name="Thruster" parent="BaseEnemy" node_paths=PackedStringArray("Player") instance=ExtResource("3_w2fhi")]
 position = Vector2(30, 9)
 rotation = 4.71239
-scale = Vector2(1, 1)
 Player = NodePath("..")
