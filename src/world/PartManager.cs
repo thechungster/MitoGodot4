@@ -4,17 +4,17 @@ using System;
 
 enum StepNumber
 {
-    UNSET,
-    POSITION,
-    ROTATION
+    Unset,
+    Position,
+    Rotation
 }
 
 public partial class PartManager : Node2D
 {
-    private BasePlayer player;
-    private BasePart activePart = null;
-    private NearestPointInfo nearestPointInfo = null;
-    private StepNumber stepNumber = StepNumber.UNSET;
+    private BasePlayer _player;
+    private BasePart _activePart = null;
+    private NearestPointInfo _nearestPointInfo = null;
+    private StepNumber _stepNumber = StepNumber.Unset;
     private SavedPart _savedPart = null;
     private bool _isSaveable = false;
 
@@ -23,26 +23,26 @@ public partial class PartManager : Node2D
         base._Ready();
     }
 
-    public void SetBasePlayer(BasePlayer player)
+    public void SetBasePlayer(BasePlayer basePlayer)
     {
-        this.player = player;
+        _player = basePlayer;
     }
 
     public override void _Process(double delta)
     {
-        if (activePart == null || stepNumber == StepNumber.UNSET)
+        if (_activePart == null || _stepNumber == StepNumber.Unset)
         {
             return;
         }
-        _isSaveable = !player.GetBaseBody().DoesPartCollide(activePart);
+        _isSaveable = !_player.GetBaseBody().DoesPartCollide(_activePart);
         Color color = _isSaveable ? CustomColors.IN_PROGRESS : CustomColors.INVALID;
-        activePart.Modulate = color;
-        if (stepNumber == StepNumber.POSITION)
+        _activePart.Modulate = color;
+        if (_stepNumber == StepNumber.Position)
         {
             _updateActivePartPosition();
         }
         // Always update Rotation
-        if (stepNumber == StepNumber.ROTATION)
+        if (_stepNumber == StepNumber.Rotation)
         {
             _updateFixedPartPosition();
         }
@@ -54,32 +54,32 @@ public partial class PartManager : Node2D
 
         if (@event.IsActionReleased(InputMapping.LEFT_MOUSE))
         {
-            if (activePart == null || stepNumber == StepNumber.UNSET)
+            if (_activePart == null || _stepNumber == StepNumber.Unset)
             {
                 return;
             }
-            if (stepNumber == StepNumber.POSITION)
+            if (_stepNumber == StepNumber.Position)
             {
-                stepNumber++;
+                _stepNumber++;
             }
-            else if (stepNumber == StepNumber.ROTATION && _isSaveable)
+            else if (_stepNumber == StepNumber.Rotation && _isSaveable)
             {
                 // finalize part
-                player.FinalizePart(nearestPointInfo);
-                activePart = null;
+                _player.FinalizePart(_nearestPointInfo);
+                _activePart = null;
             }
         }
     }
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed(InputMapping.ESCAPE) && activePart != null)
+        if (@event.IsActionPressed(InputMapping.ESCAPE) && _activePart != null)
         {
-            stepNumber--;
-            if (stepNumber <= StepNumber.UNSET)
+            _stepNumber--;
+            if (_stepNumber <= StepNumber.Unset)
             {
-                player.RemoveProgressPart();
-                activePart = null;
+                _player.RemoveProgressPart();
+                _activePart = null;
             }
         }
     }
@@ -96,27 +96,27 @@ public partial class PartManager : Node2D
 
     private void _addPart(String partPath)
     {
-        if (activePart != null)
+        if (_activePart != null)
         {
             GD.PrintErr("Cannot add a part when one is already being placed.");
             return;
         }
         PackedScene partScene = GD.Load<PackedScene>(partPath);
         BasePart part = partScene.Instantiate<BasePart>();
-        part.Player = player;
+        part.Player = _player;
         _addProgressPart(part);
     }
 
     private void _addProgressPart(BasePart part)
     {
         // Can't create a part without finishing the previous one.
-        if (activePart != null)
+        if (_activePart != null)
         {
             return;
         }
-        stepNumber = StepNumber.POSITION;
-        activePart = part;
-        player.AddProgressPart(activePart);
+        _stepNumber = StepNumber.Position;
+        _activePart = part;
+        _player.AddProgressPart(_activePart);
     }
 
     /// <summary>
@@ -124,12 +124,12 @@ public partial class PartManager : Node2D
     /// </summary>
     private void _updateActivePartPosition()
     {
-        nearestPointInfo = player.GetNearestPointOnBody(player.GetGlobalMousePosition());
+        _nearestPointInfo = _player.GetNearestPointOnBody(_player.GetGlobalMousePosition());
         _savedPart = new SavedPart();
-        _savedPart.GlobalPosition = nearestPointInfo.NearestPoint;
-        _savedPart.PositionDifference = nearestPointInfo.NearestPoint - player.GetBaseBody().GlobalPosition;
-        _savedPart.Rotation = player.GetBaseBody().Rotation;
-        activePart.GlobalPosition = nearestPointInfo.NearestPoint; //nearestPointInfo.NearestPoint.Rotated(-1 * player.GetBaseBody().Rotation) - player.GetBaseBody().GlobalPosition;
+        _savedPart.GlobalPosition = _nearestPointInfo.NearestPoint;
+        _savedPart.PositionDifference = _nearestPointInfo.NearestPoint - _player.GetBaseBody().GlobalPosition;
+        _savedPart.Rotation = _player.GetBaseBody().Rotation;
+        _activePart.GlobalPosition = _nearestPointInfo.NearestPoint; //nearestPointInfo.NearestPoint.Rotated(-1 * player.GetBaseBody().Rotation) - player.GetBaseBody().GlobalPosition;
     }
 
     /// <summary>
@@ -137,9 +137,9 @@ public partial class PartManager : Node2D
     /// </summary>
     private void _updateActivePartRotation()
     {
-        Vector2 direction = activePart.GlobalPosition - activePart.GetGlobalMousePosition();
-        float rotateRads = (float)Math.Atan2((double)direction.Y, (double)direction.X) + (float)Math.PI / 2;
-        activePart.Rotation = (float)(rotateRads) - player.GetBaseBody().Rotation;
+        Vector2 direction = _activePart.GlobalPosition - _activePart.GetGlobalMousePosition();
+        float rotateRads = (float)Math.Atan2((double)direction.y, (double)direction.x) + (float)Math.PI / 2;
+        _activePart.Rotation = (float)(rotateRads) - _player.GetBaseBody().Rotation;
     }
 
     /// <summary>
@@ -147,9 +147,9 @@ public partial class PartManager : Node2D
     /// </summary>
     private void _updateFixedPartPosition()
     {
-        BaseBody baseBody = player.GetBaseBody();
+        BaseBody baseBody = _player.GetBaseBody();
         float normalizedRotation = baseBody.Rotation - _savedPart.Rotation;
-        activePart.GlobalPosition = _savedPart.PositionDifference.Rotated(normalizedRotation) + baseBody.GlobalPosition;
+        _activePart.GlobalPosition = _savedPart.PositionDifference.Rotated(normalizedRotation) + baseBody.GlobalPosition;
     }
 
     private class SavedPart
